@@ -165,6 +165,4 @@ function checkProblemSpecification(text, clauses, variables) { //FUNÇÃO REVISA
         return false
     }
 }
-//simple0.cnf(true) -- simple2.cnf(false) -- hole4.cnf(false)
-//simple1.cnf(false)[true]  hole1.cnf(true) [false]
-//hole5.cnf(demorou) -- hole6.cnf(demorou)
+//RODOU TUDO, FINALMETEEEEEEEEEEEEEEEEEEEEE 
