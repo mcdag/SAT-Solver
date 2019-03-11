@@ -21,10 +21,8 @@ exports.solve = function(fileName) {
   
 function doSolve(clauses, assignment) { //FUNÇÃO OK ***
     if(clauses.length == 0 && assignment.length == 0){ //verifico se os tamanhos dos arrays sao zero e retorno nao satisfativel
-        console.log('ja to puta')
         return {'isSat': false, satisfyingAssignment: null}
     }
-    console.log('caguei')
     var isSat = false
     var ultimo = false
     var valorClause = []
@@ -39,10 +37,11 @@ function doSolve(clauses, assignment) { //FUNÇÃO OK ***
             }
         }
         for(var m = 0 ; m < clauses.length ; m++) {
-           for(var n = 0 ; n < clauses[m].length && (n == 0 || !valorClause[n-1]) ; n++) { //verifico se e o primeiro ou se o valor da variavel anterior da clausula e verdadeiro
+           for(var n = 0 ; n < clauses[m].length ; n++) { //verifico se e o primeiro ou se o valor da variavel anterior da clausula e verdadeiro
                 if(clauses[m][n] > 0 ) {
                     if(assignment[clauses[m][n] - 1] == 1) {
                         valorClause[m] = true
+                        break
                     }else {
                         valorClause[m] = false
                     }
@@ -51,8 +50,9 @@ function doSolve(clauses, assignment) { //FUNÇÃO OK ***
                         valorClause[m] = false
                     }else {
                         valorClause[m] = true
+                        break
                     }
-                }    
+                }   
            }
         }
         for(var i = 0 ; i < valorClause.length; i++){ //verifico se todas as clausulas sao verdadeiras, se sim, e satisfativel
@@ -94,8 +94,8 @@ function readClauses(text) { //FUNÇÃO REVISADA -- OK
     var ajudante = [] //variavel para ajudar qnd a clausula nao terminar em zero
     for(var i = 0 ; i < auxiliar.length ; i++) { //irei olhar linha por linha
         if(auxiliar[i].charAt(0)!='c' && auxiliar[i].charAt(0)!='p') { //verifico se nao tem comentario ou especificacao
+            auxiliar[i] = auxiliar[i].trim() //com essa funcao irei remover os espacos em branco antes e depois da string
             ajudante = auxiliar[i].split(" ") 
-            console.log('a' , ajudante)
             if(ajudante.length > 0 && ajudante[0] != "") {
                 if(clauses[posicao] == null){ //clauses[posicao] nao e um array, mas sim uma posicao, logo se for nulo, eu inicializo como array vazio
                     clauses[posicao] = []
@@ -107,9 +107,6 @@ function readClauses(text) { //FUNÇÃO REVISADA -- OK
                 }
             }
         }
-    }
-    for(var i = 0 ; i < clauses.length ; i++){
-        console.log(clauses[i])
     }
     return clauses
 }
@@ -162,8 +159,6 @@ function checkProblemSpecification(text, clauses, variables) { //FUNÇÃO REVISA
             achou = true
         }
     }
-    console.log(variables.length, cnf[2])
-    console.log(clauses.length, cnf[3])
     if(variables.length == cnf[2] && clauses.length == cnf[3]) { //verifico se a especificacao bate com as qntdds de variaveis e clausulas achadas
         return true
     }else {

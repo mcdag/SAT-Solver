@@ -1,4 +1,4 @@
 var re = require("./SatSolver.js")
-var resultado = re.solve('simple1.cnf')
+var resultado = re.solve('simple2.cnf')
 console.log(/*sat.solve*/(resultado.isSat));
 console.log(resultado.satisfyingAssignment);
